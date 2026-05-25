@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link } from "wouter";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import { toast } from "sonner";
 
 const HERO_DRAGONFLY = "https://d2xsxph8kpxj0f.cloudfront.net/96284060/XVea7avjAdttZbDwRxCurb/sd_hero_dragonfly-7mVczYpUh8eK6HFHV9h2zg.webp";
@@ -34,6 +35,11 @@ export default function Waitlist() {
 
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "oklch(0.98 0.005 90)" }}>
+      <SEO
+        title="Dragonfly Reset Club — Founding Member Waitlist"
+        description="Join the founding member waitlist for the Dragonfly Reset Club — a weekly digital wellness membership with personalized reset rituals, offline routines, and no-shame restart scripts. Lock in the founding rate before public launch."
+        path="/waitlist"
+      />
       <Nav />
 
       {/* Hero */}

@@ -5,6 +5,7 @@ import { Link } from "wouter";
 import { useEffect, useRef, useState } from "react";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 
 const HERO_DRAGONFLY = "https://d2xsxph8kpxj0f.cloudfront.net/96284060/XVea7avjAdttZbDwRxCurb/sd_hero_dragonfly-7mVczYpUh8eK6HFHV9h2zg.webp";
 const KIT_COVER = "https://d2xsxph8kpxj0f.cloudfront.net/96284060/XVea7avjAdttZbDwRxCurb/sd_kit_cover-d5z2zxjX5mYvqH36JwwVRT.webp";
@@ -59,8 +60,69 @@ const kitIncludes = [
 ];
 
 export default function Home() {
+  const orgSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Stubborn Dragonflies",
+    url: "https://stubborndragonflies.com",
+    description: "Tiny resets for stubborn humans. Build smaller offline rituals, no-shame restart rules, and realistic digital boundaries you can actually return to.",
+    sameAs: [],
+    offers: {
+      "@type": "Offer",
+      name: "7-Day Stubborn Reset Kit",
+      price: "17.00",
+      priceCurrency: "USD",
+      url: "https://stubborndragonflies.com/kit",
+    },
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "What is a Stubborn Reset?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "A Stubborn Reset is a tiny, repeatable offline ritual designed for people who keep starting wellness routines and abandoning them. It is not a detox or a challenge — it is one small proof that you can return.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What is the Stubborn Reset Finder quiz?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "The Stubborn Reset Finder is a free 10-question quiz that identifies which of five reset styles fits you best: Screen-Fried, Routine-Rebuilder, Overcommitted, Rest-Resistant, or Emotionally Stuck. Each result includes a personalized restart script and first tiny action.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What is the 7-Day Stubborn Reset Kit?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "The 7-Day Stubborn Reset Kit is a $17 digital download that guides you through building one small offline ritual over seven days. It includes five personalized reset tracks, an offline ritual menu, no-shame restart scripts, and a seven-day email companion sequence.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Is Stubborn Dragonflies a medical or therapy service?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "No. Stubborn Dragonflies provides wellness education only. It is not medical advice, therapy, or crisis support. If you need clinical care, please contact a qualified mental health professional.",
+        },
+      },
+    ],
+  };
+
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "oklch(0.98 0.005 90)" }}>
+      <SEO
+        title="Stubborn Dragonflies — Tiny Resets for Stubborn Humans"
+        description="If you keep starting routines and abandoning them, Stubborn Dragonflies helps you build smaller offline rituals, no-shame restart rules, and realistic digital boundaries you can actually return to. Free quiz included."
+        path="/"
+        schema={[orgSchema, faqSchema]}
+      />
       <Nav />
 
       {/* ── HERO ── */}

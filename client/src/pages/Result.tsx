@@ -3,6 +3,7 @@
 import { useParams, Link } from "wouter";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 
 type ResultType = "screen-fried" | "routine-rebuilder" | "overcommitted" | "rest-resistant" | "emotionally-stuck";
 
@@ -98,8 +99,26 @@ export default function Result() {
 
   const allTypes: ResultType[] = ["screen-fried", "routine-rebuilder", "overcommitted", "rest-resistant", "emotionally-stuck"];
 
+  const resultSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: `${data.label} — Your Stubborn Reset Style`,
+    description: data.tagline,
+    url: `https://stubborndragonflies.com/result/${resultType}`,
+    author: { "@type": "Organization", name: "Stubborn Dragonflies" },
+    publisher: { "@type": "Organization", name: "Stubborn Dragonflies", url: "https://stubborndragonflies.com" },
+    mainEntityOfPage: { "@type": "WebPage", "@id": `https://stubborndragonflies.com/result/${resultType}` },
+  };
+
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "oklch(0.98 0.005 90)" }}>
+      <SEO
+        title={`${data.label} — Your Stubborn Reset Style`}
+        description={`${data.tagline} Discover your first tiny action, restart script, and personalized kit track.`}
+        path={`/result/${resultType}`}
+        type="article"
+        schema={resultSchema}
+      />
       <Nav />
 
       <div className="max-w-2xl mx-auto w-full px-6 md:px-10 py-14 flex-1">

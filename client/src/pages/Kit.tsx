@@ -3,6 +3,7 @@
 import { Link } from "wouter";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 
 const KIT_COVER = "https://d2xsxph8kpxj0f.cloudfront.net/96284060/XVea7avjAdttZbDwRxCurb/sd_kit_cover-d5z2zxjX5mYvqH36JwwVRT.webp";
 
@@ -35,8 +36,47 @@ export default function Kit() {
     alert("Payment integration coming soon! Join the waitlist to be notified when the kit launches.");
   }
 
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: "7-Day Stubborn Reset Kit",
+    description: "A digital wellness kit for people who keep starting routines and abandoning them. Includes a 7-day reset guide, five personalized reset tracks, an offline ritual menu, no-shame restart scripts, a tiny boundary planner, and a 7-day email companion sequence.",
+    url: "https://stubborndragonflies.com/kit",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/96284060/XVea7avjAdttZbDwRxCurb/sd_kit_cover-d5z2zxjX5mYvqH36JwwVRT.webp",
+    brand: { "@type": "Brand", name: "Stubborn Dragonflies" },
+    offers: {
+      "@type": "Offer",
+      price: "17.00",
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+      url: "https://stubborndragonflies.com/kit",
+      seller: { "@type": "Organization", name: "Stubborn Dragonflies" },
+    },
+    audience: {
+      "@type": "Audience",
+      audienceType: "Adults seeking digital wellness, offline rituals, and routine-building support",
+    },
+  };
+
+  const kitFaqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "oklch(0.98 0.005 90)" }}>
+      <SEO
+        title="7-Day Stubborn Reset Kit — $17 Digital Wellness Kit"
+        description="A tiny digital kit for people who are done turning wellness into another assignment. Build one offline ritual, one restart rule, and one reliable return point in seven days. $17 instant download."
+        path="/kit"
+        type="product"
+        schema={[productSchema, kitFaqSchema]}
+      />
       <Nav />
 
       {/* Hero */}

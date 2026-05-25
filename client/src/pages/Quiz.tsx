@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import { useLocation } from "wouter";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 
 const QUIZ_ILLUSTRATION = "https://d2xsxph8kpxj0f.cloudfront.net/96284060/XVea7avjAdttZbDwRxCurb/sd_quiz_illustration-fTLhkCxz9JuhP26WSxzNYT.webp";
 
@@ -173,8 +174,32 @@ export default function Quiz() {
     setTimeout(() => navigate(`/result/${result}`), 800);
   }
 
+  const quizSchema = {
+    "@context": "https://schema.org",
+    "@type": "Quiz",
+    name: "Stubborn Reset Finder",
+    description: "A free 3-minute quiz that identifies your personal reset style: Screen-Fried, Routine-Rebuilder, Overcommitted, Rest-Resistant, or Emotionally Stuck. Each result includes a personalized restart script and first tiny action.",
+    url: "https://stubborndragonflies.com/quiz",
+    provider: {
+      "@type": "Organization",
+      name: "Stubborn Dragonflies",
+      url: "https://stubborndragonflies.com",
+    },
+    educationalUse: "Self-assessment",
+    audience: {
+      "@type": "Audience",
+      audienceType: "Adults seeking digital wellness and routine-building support",
+    },
+  };
+
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "oklch(0.98 0.005 90)" }}>
+      <SEO
+        title="Stubborn Reset Finder — Free 3-Minute Quiz"
+        description="Take the free Stubborn Reset Finder quiz to discover your personal reset style. Are you Screen-Fried, a Routine-Rebuilder, Overcommitted, Rest-Resistant, or Emotionally Stuck? Get a personalized restart script in 3 minutes."
+        path="/quiz"
+        schema={quizSchema}
+      />
       <Nav />
 
       {/* Progress bar */}

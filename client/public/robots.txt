@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Disallow result pages from being indexed as standalone pages (they are quiz outputs)
+# Remove the lines below if you want result pages indexed
+# Disallow: /result/
+
+Sitemap: https://stubborndragonflies.com/sitemap.xml
