@@ -27,9 +27,21 @@
 - [x] Write 2 seed blog posts as Markdown files (screen fatigue + routine restart)
 - [x] Add Blog link to Nav
 
+## Completed (Phase 3 - Full Systeme.io Lifecycle Automation)
+- [x] Rewrite systemeRouter with tag auto-provisioning (ensureTag creates tags on first use)
+- [x] Upgrade subscribeQuiz: strict enum resetStyle, quiz-subscriber + reset style + source-website tags
+- [x] Upgrade subscribeWaitlist: waitlist + founding-member + optional reset style tags, fix TS type error
+- [x] Add subscribeKitBuyer: kit-buyer + optional reset style tags
+- [x] Add provisionTags admin utility (creates all 11 SD tags in Systeme.io)
+- [x] Add listTags admin query
+- [x] Add getContacts admin query
+- [x] Wire Kit.tsx handleBuy to email capture modal → subscribeKitBuyer mutation
+- [x] Fix TypeScript error in Waitlist.tsx (resetStyle strict enum type)
+- [x] Install dotenv dependency
+
 ## Pending
-- [ ] Add SYSTEME_IO_API_KEY to secrets (required to activate email capture)
-- [ ] Push all Phase 2 changes to GitHub
+- [ ] Push all changes to GitHub (need PAT from Carla)
 - [ ] Add 23 remaining blog posts from keyword list
-- [ ] Wire Stripe to Kit page (handleBuy placeholder ready in Kit.tsx)
+- [ ] Wire Stripe to Kit page (replace modal with real payment flow)
 - [ ] Update sitemap.xml with /blog and /blog/:slug URLs
+- [ ] Build admin dashboard page (/admin) using listTags + getContacts queries

@@ -22,7 +22,7 @@ const clubIncludes = [
 export default function Waitlist() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [resetStyle, setResetStyle] = useState("");
+  const [resetStyle, setResetStyle] = useState<"screen-fried" | "routine-rebuilder" | "overcommitted" | "rest-resistant" | "emotionally-stuck" | "">("" );
   const [submitted, setSubmitted] = useState(false);
 
   const subscribeWaitlist = trpc.systeme.subscribeWaitlist.useMutation();
@@ -31,7 +31,7 @@ export default function Waitlist() {
     e.preventDefault();
     setSubmitted(true);
     subscribeWaitlist.mutate(
-      { email, firstName: name.trim() || "Friend", resetStyle },
+      { email, firstName: name.trim() || "Friend", resetStyle: resetStyle || undefined },
       {
         onSuccess: () => {
           toast.success("You are on the list.", {
@@ -232,7 +232,7 @@ export default function Waitlist() {
                   </label>
                   <select
                     value={resetStyle}
-                    onChange={(e) => setResetStyle(e.target.value)}
+                    onChange={(e) => setResetStyle(e.target.value as "screen-fried" | "routine-rebuilder" | "overcommitted" | "rest-resistant" | "emotionally-stuck" | "")}
                     className="w-full px-4 py-3 text-sm"
                     style={{
                       border: "1px solid oklch(0.88 0.02 85)",
