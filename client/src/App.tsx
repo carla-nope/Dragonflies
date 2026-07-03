@@ -10,8 +10,10 @@ import Quiz from "./pages/Quiz";
 import Result from "./pages/Result";
 import Kit from "./pages/Kit";
 import Waitlist from "./pages/Waitlist";
-
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 function Router() {
+  // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
       <Route path="/" component={Home} />
@@ -19,6 +21,8 @@ function Router() {
       <Route path="/result/:type" component={Result} />
       <Route path="/kit" component={Kit} />
       <Route path="/waitlist" component={Waitlist} />
+      <Route path="/blog" component={Blog} />
+      <Route path="/blog/:slug" component={BlogPost} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

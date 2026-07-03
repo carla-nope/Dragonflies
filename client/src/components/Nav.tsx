@@ -31,6 +31,9 @@ export default function Nav() {
         <NavLink href="/kit" active={location === "/kit"}>
           7-Day Kit
         </NavLink>
+        <NavLink href="/blog" active={location.startsWith("/blog")}>
+          Blog
+        </NavLink>
         <NavLink href="/waitlist" active={location === "/waitlist"}>
           Join the Club
         </NavLink>

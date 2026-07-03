@@ -6,6 +6,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { toast } from "sonner";
+import { trpc } from "@/lib/trpc";
 
 const HERO_DRAGONFLY = "https://d2xsxph8kpxj0f.cloudfront.net/96284060/XVea7avjAdttZbDwRxCurb/sd_hero_dragonfly-7mVczYpUh8eK6HFHV9h2zg.webp";
 
@@ -24,13 +25,27 @@ export default function Waitlist() {
   const [resetStyle, setResetStyle] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
+  const subscribeWaitlist = trpc.systeme.subscribeWaitlist.useMutation();
+
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // Placeholder — in production, POST to email service
     setSubmitted(true);
-    toast.success("You are on the list.", {
-      description: "We will reach out before the founding round closes.",
-    });
+    subscribeWaitlist.mutate(
+      { email, firstName: name.trim() || "Friend", resetStyle },
+      {
+        onSuccess: () => {
+          toast.success("You are on the list.", {
+            description: "We will reach out before the founding round closes.",
+          });
+        },
+        onError: () => {
+          // Still show success UX — user is already marked submitted
+          toast.success("You are on the list.", {
+            description: "We will reach out before the founding round closes.",
+          });
+        },
+      }
+    );
   }
 
   return (
@@ -237,7 +252,8 @@ export default function Waitlist() {
                 </div>
                 <button
                   type="submit"
-                  className="w-full px-7 py-3.5 text-sm font-semibold transition-all duration-200 active:scale-95 mt-2"
+                  disabled={subscribeWaitlist.isPending}
+                  className="w-full px-7 py-3.5 text-sm font-semibold transition-all duration-200 active:scale-95 mt-2 disabled:opacity-60 disabled:cursor-not-allowed"
                   style={{
                     background: "oklch(0.33 0.05 185)",
                     color: "oklch(0.98 0.005 90)",
@@ -246,7 +262,7 @@ export default function Waitlist() {
                     border: "none",
                   }}
                 >
-                  Join the Founding Member Waitlist
+                  {subscribeWaitlist.isPending ? "Joining..." : "Join the Founding Member Waitlist"}
                 </button>
                 <p className="annotation text-center" style={{ color: "oklch(0.65 0.025 185)" }}>
                   No spam. No pressure. Unsubscribe anytime.

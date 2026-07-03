@@ -6,6 +6,7 @@ import { useLocation } from "wouter";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import { trpc } from "@/lib/trpc";
 
 const QUIZ_ILLUSTRATION = "https://d2xsxph8kpxj0f.cloudfront.net/96284060/XVea7avjAdttZbDwRxCurb/sd_quiz_illustration-fTLhkCxz9JuhP26WSxzNYT.webp";
 
@@ -144,8 +145,10 @@ export default function Quiz() {
   const [answers, setAnswers] = useState<number[]>(Array(questions.length).fill(-1));
   const [currentQ, setCurrentQ] = useState(0);
   const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
   const [emailSubmitted, setEmailSubmitted] = useState(false);
   const [, navigate] = useLocation();
+  const subscribeQuiz = trpc.systeme.subscribeQuiz.useMutation();
   const questionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const progress = (currentQ / questions.length) * 100;
@@ -169,9 +172,24 @@ export default function Quiz() {
 
   function handleEmailSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setEmailSubmitted(true);
     const result = computeResult(answers);
-    setTimeout(() => navigate(`/result/${result}`), 800);
+    setEmailSubmitted(true);
+    subscribeQuiz.mutate(
+      {
+        email,
+        firstName: firstName.trim() || "Friend",
+        resetStyle: result,
+      },
+      {
+        onSuccess: () => {
+          navigate(`/result/${result}`);
+        },
+        onError: () => {
+          // Navigate anyway — email capture failure should not block the user
+          navigate(`/result/${result}`);
+        },
+      }
+    );
   }
 
   const quizSchema = {
@@ -317,14 +335,13 @@ export default function Quiz() {
                   Your reset style, first tiny action, and 7-day path will be sent to your inbox.
                   No spam. Unsubscribe anytime.
                 </p>
-                <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-3">
+                <form onSubmit={handleEmailSubmit} className="flex flex-col gap-3">
                   <input
-                    type="email"
-                    required
-                    placeholder="your@email.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="flex-1 px-4 py-3 text-sm"
+                    type="text"
+                    placeholder="First name (optional)"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    className="px-4 py-3 text-sm"
                     style={{
                       border: "1px solid oklch(0.88 0.02 85)",
                       background: "oklch(0.99 0.01 90)",
@@ -333,18 +350,36 @@ export default function Quiz() {
                       outline: "none",
                     }}
                   />
-                  <button
-                    type="submit"
-                    className="px-7 py-3 text-sm font-semibold transition-all duration-200 active:scale-95 whitespace-nowrap"
-                    style={{
-                      background: "oklch(0.33 0.05 185)",
-                      color: "oklch(0.98 0.005 90)",
-                      fontFamily: "'Nunito Sans', sans-serif",
-                      border: "none",
-                    }}
-                  >
-                    See My Result →
-                  </button>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <input
+                      type="email"
+                      required
+                      placeholder="your@email.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="flex-1 px-4 py-3 text-sm"
+                      style={{
+                        border: "1px solid oklch(0.88 0.02 85)",
+                        background: "oklch(0.99 0.01 90)",
+                        fontFamily: "'Nunito Sans', sans-serif",
+                        color: "oklch(0.33 0.05 185)",
+                        outline: "none",
+                      }}
+                    />
+                    <button
+                      type="submit"
+                      disabled={subscribeQuiz.isPending}
+                      className="px-7 py-3 text-sm font-semibold transition-all duration-200 active:scale-95 whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed"
+                      style={{
+                        background: "oklch(0.33 0.05 185)",
+                        color: "oklch(0.98 0.005 90)",
+                        fontFamily: "'Nunito Sans', sans-serif",
+                        border: "none",
+                      }}
+                    >
+                      {subscribeQuiz.isPending ? "Sending..." : "See My Result →"}
+                    </button>
+                  </div>
                 </form>
                 <p className="annotation mt-3" style={{ color: "oklch(0.65 0.025 185)" }}>
                   By submitting, you agree to receive your result and occasional gentle nudges from Stubborn Dragonflies.
