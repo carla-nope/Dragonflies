@@ -40,7 +40,7 @@
 - [x] Install dotenv dependency
 
 ## Pending
-- [ ] Push all changes to GitHub (need PAT from Carla)
+- [x] Push all changes to GitHub
 - [ ] Add 23 remaining blog posts from keyword list
 - [ ] Wire Stripe to Kit page (replace modal with real payment flow)
 - [x] Update sitemap.xml with /blog and /blog/:slug URLs
