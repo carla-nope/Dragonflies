@@ -43,5 +43,5 @@
 - [ ] Push all changes to GitHub (need PAT from Carla)
 - [ ] Add 23 remaining blog posts from keyword list
 - [ ] Wire Stripe to Kit page (replace modal with real payment flow)
-- [ ] Update sitemap.xml with /blog and /blog/:slug URLs
+- [x] Update sitemap.xml with /blog and /blog/:slug URLs
 - [ ] Build admin dashboard page (/admin) using listTags + getContacts queries

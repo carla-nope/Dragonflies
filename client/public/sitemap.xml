@@ -29,6 +29,24 @@
   </url>
 
   <url>
+    <loc>https://stubborndragonflies.com/blog</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://stubborndragonflies.com/blog/what-is-screen-fatigue-and-why-your-brain-feels-fried</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://stubborndragonflies.com/blog/why-you-keep-abandoning-routines-and-how-to-actually-restart</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
     <loc>https://stubborndragonflies.com/result/screen-fried</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
